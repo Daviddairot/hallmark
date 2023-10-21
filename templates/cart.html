@@ -1,0 +1,30 @@
+{% extends 'index.html'%}
+{%block content%}
+{%load static%}
+<br><br><br>
+<div class = "to">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide"><img src="{{items.item_image.url}}" alt="Image 0"/></div>
+			<div class="swiper-slide"><img src="{{items.content_1.url}}" alt="Image 1"/></div>
+			<div class="swiper-slide"><img src="{{items.content_2.url}}" alt="Image 2"/></div>
+			<div class="swiper-slide"><img src="{{items.content_3.url}}" alt="Image 3"/></div>
+
+			<!-- Add more swiper-slide elements for additional images -->
+		</div>
+		<div class="swiper-pagination"></div>
+		<div class="swiper-button-next"></div>
+		<div class="swiper-button-prev"></div>
+	</div>
+</div>
+<div class="brand-bg">
+	<div class="container">
+		<div class="row">
+			<span>For more enquires</span><br>
+			<a class="read-more" href="https://wa.me/+2348068883213" target="_blank">
+				<img src = "{% static 'img/302545850_624095499080233_2353782457618232690_n.png'%}">
+			</a>
+		</div>
+	</div>
+</div>  
+{%endblock%}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hallmark</title>
+	<link rel="stylesheet" href="{% static 'main-style.css'%}"></head>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+	
+<body>
+	<header>
+		<div class = "header">
+			<div class = "header-container">
+				<a href  = "{% url 'index'%}" ><h1 class = "title">Hallmark Books</h1></a>
+			</div>
+			<div class="search">
+				<div class="dropdown">
+					<button class="dropbtn">Menu</button>
+					<div class="dropdown-content">
+						<a href="{% url 'term1' term1='1st' %}">1st Term</a>
+						<a href="{% url 'term2' term2='2nd' %}">2nd Term</a>
+						<a href="{% url 'term3' term3='3nd' %}">3rd Term</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	{%block content%}
+		<div class = "grid-size">
+			<div class="grid-container">
+				{%for item in items%}
+					<div class="grid-item">
+						<a href="{% url 'cart' item.id %}">
+							<img src = {{item.item_image.url}}/><br>
+						</a>
+						<span>{{item.bookname}}</span><br>
+						<span>{{item.term}} Term</span><br>
+						<span>Grade {{item.grade}}</span>
+					</div>
+				{%endfor%}
+			</div>
+		</div>
+	{%endblock%}
+	<footer>
+		<div class = "footer">
+			<div class="footer-align">
+				<span class="contact">CONTACT US</span>
+				<div class="form_container">
+					<form method="post" action="{% url 'contact' %}">
+						{% csrf_token %}
+						<input type="text" id="name" name="name" placeholder="Your Name" required><br>
+				
+						<input type="email" id="email" name="email" placeholder="Email" required><br>
+				
+						<input type="text" id="phone" name="phone" placeholder="Phone Number" required><br>
+				
+						<textarea id="message" name="message" class= "message-box" style="width: 100%; border-radius: 10px; border-color: rgb(220, 226, 231);" placeholder="Message" required></textarea><br>
+				
+						<button type="submit">Send</button>
+					</form>
+					<span class="pow">Designed By Dorbes</span>
+				</div>
+			</div>
+			<div class="footer-align">
+				<span><strong class="about">ABOUT US</strong></span><br><br>
+				<span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae mollitia, omnis ut aliquid non ex esse voluptate odit placeat fuga labore quibusdam explicabo accusamus. Voluptas esse dolores autem quasi. Distinctio.</span>
+			</div>
+			<div class="footer-align">
+				<div id="map"></div>
+			</div>
+		</div>
+	</footer>
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script>
+        var mySwiper = new Swiper('.swiper-container', {
+            loop: true, // Enable loop mode if needed
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+	
+
+	<script>
+		var map = L.map('map').setView([8.964378173416065, 7.457117707886969], 13); // Set initial coordinates and zoom level
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+	
+		// Define the coordinates for the marker's location
+		var markerLocation = [8.964378173416065, 7.457117707886969]; 
+	
+		// Create a marker and add it to the map
+		var marker = L.marker(markerLocation, {
+			icon: L.icon({ iconUrl: 'marker-icon.png'}), // Customize the marker icon
+			title: 'London, UK', // Marker title
+		}).addTo(map);
+	
+		// Add a popup to the marker
+		marker.bindPopup('Hallmark').openPopup();
+	</script>
+	
+</body>
+</html>
